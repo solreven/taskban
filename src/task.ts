@@ -31,3 +31,7 @@ export const createTask = (
 export const addTask = (list: Task[], task: Task) => {
   return list.concat(task);
 };
+
+export const removeTask = (list: Task[], id: string) => {
+  return list.filter((task) => task.id !== id);
+};
