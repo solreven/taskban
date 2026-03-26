@@ -1,4 +1,6 @@
 import { createTask, addTask, removeTask } from "../task";
+import type { Task } from "../task";
+
 describe("Task creation", () => {
   it("should create a new task with title, description, priority, status and an id", () => {
     const task = createTask("Task 1", "Description 1", "high");
@@ -11,9 +13,10 @@ describe("Task creation", () => {
     });
   });
 });
+// These could also just be one test, but hey I'm learning
 describe("adding tasks", () => {
-  it("adds a task to an empty list...", () => {
-    const list = [];
+  it("checks that it adds a task to an empty list...", () => {
+    const list = [] as Task[];
     const task = createTask("Task 1", "Description 1", "high");
 
     const result = addTask(list, task);
@@ -21,7 +24,7 @@ describe("adding tasks", () => {
     expect(result).toHaveLength(1);
   });
   it("... and the task is added to the list", () => {
-    const list = [];
+    const list = [] as Task[];
     const task = createTask("Task 1", "Description 1", "high");
 
     const result = addTask(list, task);
