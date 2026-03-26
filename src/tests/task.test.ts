@@ -1,4 +1,4 @@
-import { createTask, addTask, removeTask } from "../task";
+import { createTask, addTask, removeTask, updateTask } from "../task";
 import type { Task } from "../task";
 
 describe("Task creation", () => {
@@ -37,11 +37,36 @@ describe("Removing a task", () => {
     const task1 = createTask("Task 1", "Description 1", "high");
     const task2 = createTask("Task 2", "Description 2", "high");
     const list = [task1, task2];
+
     const result = removeTask(list, task2.id);
+
     expect(result).toEqual([task1]);
   });
   it.todo(
     "removes a task by referring to its name while making sure it is unique",
-    () => {},
   );
+});
+describe("Update a task", () => {
+  it("update a task by changing its status to done", () => {
+    const task1 = createTask("Task 1", "Description 1", "high");
+    const task2 = createTask("Task 2", "Description 2", "high");
+    const list = [task1, task2];
+
+    const finish = updateTask(list, task1.id, { status: "done" });
+
+    expect(finish[0].status).toEqual("done");
+    expect(finish[1].status).toEqual("todo");
+    expect(finish).toHaveLength(2);
+  });
+  // it(
+  //   "update a task by referring to its id without removing it from the list",
+  //   () => {
+  //     const task1 = createTask("Task 1", "Description 1", "high");
+  //     const task2 = createTask("Task 2", "Description 2", "high");
+  //     const list = [task1, task2];
+
+  //     const finish = updateTask(list, task1.id, { status: "done" });
+
+  //     expect(finish).toEqual([task1, task2]);
+  //   }  );
 });

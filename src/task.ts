@@ -39,3 +39,11 @@ export const addTask = (tasks: Task[], task: Task): Task[] => {
 export const removeTask = (tasks: Task[], id: string): Task[] => {
   return tasks.filter((task) => task.id !== id);
 };
+
+export const updateTask = (
+  list: Task[],
+  id: string,
+  change: Partial<Task>,
+): Task[] => {
+  return [];
+};
