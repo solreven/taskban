@@ -72,3 +72,23 @@ export const updateTask = (
   }
   return updatedList;
 };
+
+export const getTodoTasks = (tasks: Task[]) => {
+  const todoTasks = [];
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].status === "todo") {
+      todoTasks.push(tasks[i]);
+    }
+  }
+  return todoTasks;
+};
+
+export const getDoneTasks = (tasks: Task[]) => {
+  const doneTasks = [];
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].status === "done") {
+      doneTasks.push(tasks[i]);
+    }
+  }
+  return doneTasks;
+};

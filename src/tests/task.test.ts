@@ -1,4 +1,11 @@
-import { createTask, addTask, removeTask, updateTask } from "../task";
+import {
+  createTask,
+  addTask,
+  removeTask,
+  updateTask,
+  getTodoTasks,
+  getDoneTasks,
+} from "../task";
 import type { Task } from "../task";
 
 describe("Task creation", () => {
@@ -58,15 +65,18 @@ describe("Update a task", () => {
     expect(finish[1].status).toEqual("todo");
     expect(finish).toHaveLength(2);
   });
-  // it(
-  //   "update a task by referring to its id without removing it from the list",
-  //   () => {
-  //     const task1 = createTask("Task 1", "Description 1", "high");
-  //     const task2 = createTask("Task 2", "Description 2", "high");
-  //     const list = [task1, task2];
+});
+describe("Tests to determine what lists and statuses tasks are in", () => {
+  it("checks that the lists the tests are in reflect what statuses the tasks are in", () => {
+    const task1 = createTask("Task 1", "Description 1", "high");
+    const tasks = [task1];
 
-  //     const finish = updateTask(list, task1.id, { status: "done" });
+    const updated = updateTask(tasks, task1.id, { status: "done" });
 
-  //     expect(finish).toEqual([task1, task2]);
-  //   }  );
+    const todoList = getTodoTasks(updated);
+    const doneList = getDoneTasks(updated);
+
+    expect(todoList).toHaveLength(0);
+    expect(doneList).toHaveLength(1);
+  });
 });
