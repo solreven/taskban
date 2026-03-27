@@ -40,10 +40,26 @@ export const removeTask = (tasks: Task[], id: string): Task[] => {
   return tasks.filter((task) => task.id !== id);
 };
 
+// Updates a task's status. Claude has an elegant solution here with: {...task, ...change} that doesn't use a loop, should refactor into that later.
 export const updateTask = (
   list: Task[],
   id: string,
   change: Partial<Task>,
 ): Task[] => {
-  return [];
+  const updatedList: Task[] = [];
+  for (let i = 0; i < list.length; i++) {
+    const task = list[i];
+    if (task.id === id) {
+      updatedList.push({
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        status: change.status ?? task.status,
+      });
+    } else {
+      updatedList.push(task);
+    }
+  }
+  return updatedList;
 };
