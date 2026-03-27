@@ -40,11 +40,16 @@ export const removeTask = (tasks: Task[], id: string): Task[] => {
   return tasks.filter((task) => task.id !== id);
 };
 
-// Updates a task's status. Claude has an elegant solution here with: {...task, ...change} that doesn't use a loop, should refactor into that later.
+// Updates a task's status. Claude says to use .map and {...task, ...change} whichh
 export const updateTask = (
   list: Task[],
   id: string,
-  change: Partial<Task>,
+  /* Claude suggested: change: Partial<Task> here. 
+  However, that means we'll need status: change.status ?? task.status (or something similar) further down in the function,
+  and I can't imagine how that's best practice. But who am I to talk, I'm using a loop instead of .map!
+  That'll need refactoring later. Also check how this relates to test coverage.
+  */
+  change: { status: Status },
 ): Task[] => {
   const updatedList: Task[] = [];
   for (let i = 0; i < list.length; i++) {
@@ -55,7 +60,11 @@ export const updateTask = (
         title: task.title,
         description: task.description,
         priority: task.priority,
+        status: change.status,
+        /*
+        if you think it's better to use Partial<Task> instead of { status: Status }, you can use this to fix the error it'll throw:
         status: change.status ?? task.status,
+        */
       });
     } else {
       updatedList.push(task);
