@@ -49,9 +49,16 @@ describe("Removing a task", () => {
 
     expect(result).toEqual([task1]);
   });
-  it.todo(
-    "removes a task by referring to its name while making sure it is unique",
-  );
+  it("removes all tasks that have the same title", () => {
+    const task1 = createTask("Task 1", "Description 1", "high");
+    const task2 = createTask("Task 1", "Description 2", "high");
+    const list = [task1, task2];
+
+    const result = removeTask(list, task1.title);
+
+    expect(result).toEqual([]);
+  });
+  it.todo("removes only the first of tasks that have the same title");
 });
 describe("Update a task", () => {
   it("update a task by changing its status to done", () => {

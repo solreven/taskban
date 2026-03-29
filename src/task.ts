@@ -35,9 +35,13 @@ export const addTask = (tasks: Task[], task: Task): Task[] => {
   return tasks.concat(task);
 };
 
-// removes a task by id
+// removes a task by id or all(sic!) tasks with the same title
 export const removeTask = (tasks: Task[], id: string): Task[] => {
-  return tasks.filter((task) => task.id !== id);
+  if (tasks.some((task) => task.title === id)) {
+    return tasks.filter((task) => task.title !== id);
+  } else {
+    return tasks.filter((task) => task.id !== id);
+  }
 };
 
 // Updates a task's status. Claude says to use .map and {...task, ...change} whichh
